@@ -1,0 +1,57 @@
+:root {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Theme-aware text colors for author metadata. Default is for dark theme. */
+  --author-name-color: rgba(255, 255, 255, 1);
+  --author-date-color: rgba(255, 255, 255, 0.85);
+  --author-text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/*
+  To switch to a light-theme (where author name/date should be dark),
+  add the class `light-theme` to the <body> element. Example:
+
+  document.body.classList.add('light-theme')
+
+  The variables below will then apply and make author text dark.
+*/
+body.light-theme {
+  --author-name-color: rgba(18, 18, 18, 0.95);
+  --author-date-color: rgba(34, 34, 34, 0.85);
+  --author-text-shadow: none;
+}
+
+
+

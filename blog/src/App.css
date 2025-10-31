@@ -1,0 +1,114 @@
+.app {
+  min-height: 100vh;
+  background-color: #f9fafb;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.125rem;
+  color: #6b7280;
+}
+
+.error {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.125rem;
+  color: #dc2626;
+}
+
+.error-message {
+  background-color: #fee2e2;
+  color: #991b1b;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #dc2626;
+}
+
+/* Global custom cursor: hide default cursor app-wide but keep text caret */
+.app {
+  cursor: none;
+}
+.app input,
+.app textarea,
+.app .CodeMirror,
+.app [contenteditable="true"] {
+  cursor: text;
+}
+
+/* Ensure interactive elements also keep default hidden pointer */
+.app a,
+.app button,
+.app [role="button"],
+.app .tab,
+.app .mod-btn,
+.app .btn,
+.app .header-btn,
+.app .btn-create,
+.app .btn-post-action {
+  cursor: none;
+}
+
+/* Animated Cursor Styles (global) */
+.animated-cursor {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99999;
+}
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate3d(-100px, -100px, 0);
+  will-change: transform;
+  transition: transform 0.05s linear;
+}
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  mix-blend-mode: difference;
+}
+.cursor-ring {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid rgba(102, 126, 234, 0.8);
+  backdrop-filter: blur(2px);
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.08), rgba(255,255,255,0) 60%);
+  opacity: 0;
+}
+.cursor-ring.is-hover {
+  width: 48px;
+  height: 48px;
+  border-width: 2px;
+  box-shadow: 0 0 30px rgba(102, 126, 234, 0.35);
+}
+.cursor-dot.is-down {
+  transform: scale(0.85);
+}
+.cursor-ring.is-down {
+  transform: scale(0.9);
+  box-shadow: 0 0 25px rgba(118, 75, 162, 0.4);
+}
+
+/* Respect reduced motion or environments where custom cursor isn't desired */
+@media (prefers-reduced-motion: reduce) {
+  .app { cursor: auto; }
+  .animated-cursor { display: none; }
+}

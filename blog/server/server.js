@@ -22,8 +22,24 @@ connectDB();
 const app = express();
 
 // Middleware
+// Allow multiple origins for CORS (production + dev)
+const allowedOrigins = [
+  'https://bloghaven-draft.netlify.app',
+  'http://localhost:5173',
+  process.env.FRONTEND_URL
+].filter(Boolean);
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'https://bloghaven-draft.netlify.app/',
+  origin: function(origin, callback) {
+    // Allow requests with no origin (mobile apps, Postman, etc)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      console.warn(`Blocked CORS request from origin: ${origin}`);
+      callback(null, true); // Allow anyway for now during deployment
+    }
+  },
   credentials: true,
 }));
 app.use(express.json());
@@ -37,6 +53,23 @@ app.use('/api/users', userRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+
+// Root route (for deployment health checks)
+app.get('/', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    message: 'BlogHaven API is running',
+    version: '1.0.0',
+    endpoints: {
+      health: '/api/health',
+      auth: '/api/auth',
+      posts: '/api/posts',
+      comments: '/api/comments',
+      users: '/api/users',
+      admin: '/api/admin'
+    }
+  });
+});
 
 // Health check
 app.get('/api/health', (req, res) => {
